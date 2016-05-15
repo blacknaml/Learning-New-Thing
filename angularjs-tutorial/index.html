@@ -11,7 +11,21 @@
 <body ng-app="app" ng-controller="MainController as main">
     <div class="container">
         <h1>{{main.title}}</h1>
-        <h2>{{main.subtitle}}</h2>
+        <div class="input-group">
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-search"></span>
+            </span>
+            <input type="text" class="form-control" ng-model="main.searchInput">
+        </div>
+        <p>{{main.searchInput}}</p>
     </div>
+    <h3>A list of movies</h3>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="show in main.shows | filter:main.searchInput | orderBy:main.order.key:main.order.reverse">
+            <span class="glyphicon glyphicon-star" ng-if="show.favorite"></span>
+            {{show.title}} <span class="badge">{{show.year}}</span>
+        </li>
+    </ul>
+    <select class="form-control full-right" ng-model="main.order" ng-options="order as order.title for order in main.orders"></select>
 </body>
 </html>
